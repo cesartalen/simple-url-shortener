@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { useState } from 'react'
+import { SHORTEN_URL } from '../statics/fetchUrls'
 
 export default function IndexPage() {
   const[url, setUrl] = useState('')
@@ -15,7 +16,7 @@ export default function IndexPage() {
       setError('URL must start with http:// or https://')
       return
     }
-    axios.post('http://127.0.0.1:3000/shorten', {
+    axios.post(SHORTEN_URL, {
       original: url
     }).then(function (response) {
       //? https://www.   ...

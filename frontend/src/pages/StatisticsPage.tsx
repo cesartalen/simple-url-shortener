@@ -6,16 +6,16 @@ This page should also have a link to the page it is linking to, that is clickabl
 
 import axios from 'axios'
 import { useEffect, useState } from 'react'
+import { GET_URL_STATS } from '../statics/fetchUrls'
 
 export default function StatisticsPage() {
   const [notFound, setNotFound] = useState(false)
   const [shortenedURL, setShortenedURL] = useState('')
   const [originalURL, setOriginalURL] = useState('')
   const [clicks, setClicks] = useState(0)
-  //axios.post(`http://127.0.0.1:3000/stats/${window.location.pathname.substring(3)}`)
   //! There has to be a better way to do this..
   useEffect(() => {
-    axios.get(`http://127.0.0.1:3000/stats/${window.location.pathname.substring(window.location.pathname.indexOf('/', + 1) + 1)}`).then(res => {
+    axios.get(GET_URL_STATS(window.location.pathname.substring(window.location.pathname.indexOf('/', + 1) + 1))).then(res => {
       if(res.status === 200) {
         setShortenedURL(window.location.origin + /s/ + window.location.pathname.substring(window.location.pathname.indexOf('/', + 1) + 1))
         setOriginalURL(res.data.Original)
