@@ -7,17 +7,19 @@ This page should also have a link to the page it is linking to, that is clickabl
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { GET_URL_STATS } from '../statics/fetchUrls'
+import { useParams } from 'react-router-dom'
 
 export default function StatisticsPage() {
+  const { id } = useParams()
   const [notFound, setNotFound] = useState(false)
   const [shortenedURL, setShortenedURL] = useState('')
   const [originalURL, setOriginalURL] = useState('')
   const [clicks, setClicks] = useState(0)
-  //! There has to be a better way to do this..
+  
   useEffect(() => {
-    axios.get(GET_URL_STATS(window.location.pathname.substring(window.location.pathname.indexOf('/', + 1) + 1))).then(res => {
+    axios.get(GET_URL_STATS(id)).then(res => {
       if(res.status === 200) {
-        setShortenedURL(window.location.origin + /s/ + window.location.pathname.substring(window.location.pathname.indexOf('/', + 1) + 1))
+        setShortenedURL(window.location.origin + /s/ + id)
         setOriginalURL(res.data.Original)
         setClicks(res.data.Clicks)
       } else {

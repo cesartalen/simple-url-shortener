@@ -19,8 +19,6 @@ export default function IndexPage() {
     axios.post(SHORTEN_URL, {
       original: url
     }).then(function (response) {
-      //? https://www.   ...
-      //setShortenedUrl("https://www." + location.host + "/s/" + response.data.shortened)
       setShortenedUrl(location.host + "/s/" + response.data.shortened)
     }).catch(function (error) {
       console.log(error)

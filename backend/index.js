@@ -2,16 +2,23 @@ import express from 'express'
 import dotenv from 'dotenv'
 import mongoose from 'mongoose'
 import cors from 'cors'
+import rateLimit from 'express-rate-limit'
 import { router as shortenUrlRoute } from './routes/shorten.js'
 import { router as shortUrlRoute } from './routes/url.js'
 import { router as urlStatsRoute } from './routes/stats.js'
 
 dotenv.config()
 const PORT = process.env.port || 3000
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  limit: 100,
+  message: 'Too many requests, try again later',
+})
 
 const app = express()
 app.use(express.json())
 
+app.use(limiter)
 // app.use(cors())
 
 app.use(
