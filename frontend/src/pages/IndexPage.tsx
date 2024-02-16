@@ -5,6 +5,7 @@ import { SHORTEN_URL } from '../statics/fetchUrls'
 export default function IndexPage() {
   const[url, setUrl] = useState('')
   const[shortenedUrl, setShortenedUrl] = useState('')
+  const[statsUrl, setStatsUrl] = useState('')
   const [error, setError] = useState('')
 
   const handleInput = (e: React.FormEvent<HTMLInputElement>) => {
@@ -20,10 +21,13 @@ export default function IndexPage() {
       original: url
     }).then(function (response) {
       setShortenedUrl(location.host + "/s/" + response.data.shortened)
+      setStatsUrl(location.host + "/stats/" + response.data.shortened)
     }).catch(function (error) {
       console.log(error)
     })
   }
 
-  return <div>{error && <div style={{ color: 'red' }}>{error}</div>}<a href={shortenedUrl}>{shortenedUrl}</a> <input onChange={handleInput}></input><button onClick={shortenUrl}>Shorten</button></div>
+  return <div>{error && <div style={{ color: 'red' }}>{error}</div>}
+  {statsUrl && <><a className='text-grey-300' href={statsUrl}>statspage: {statsUrl}</a><br/></>}<a className=' text-green-700 font-bold' href={shortenedUrl}>{shortenedUrl}</a> <br/><input onChange={handleInput} className='rounded px-4 border-2
+  border-gray-500 focus:outline-none focus:bg-white focus:border-red-500 mr-3'></input><button onClick={shortenUrl}>Shorten</button></div>
 }
