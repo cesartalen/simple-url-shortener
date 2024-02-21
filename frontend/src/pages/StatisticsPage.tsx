@@ -34,7 +34,9 @@ export default function StatisticsPage() {
     <div>
       {notFound ? (
         <div>There is no such link</div>
-      ) : <div>Shortened: {shortenedURL}<br/>Original url: {originalURL} <br/> Clicks: {clicks}</div>}
+      ) : <div><a href={shortenedURL}>Shortened: {shortenedURL}</a><br/>
+      <a href={originalURL}>Original url: {originalURL}</a> <br/> 
+      Clicks: {clicks}</div>}
     </div>
   )
 }
